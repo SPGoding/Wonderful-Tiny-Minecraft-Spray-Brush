@@ -1,10 +1,9 @@
 #> wtmsb:tick
 
-execute as @a unless score @s wtmsbUid matches 0.. run function wtmsb:private/get_uid
-execute as @a unless score @s wtmsbType matches 1.. run scoreboard players set @s wtmsbType 1
-
-execute as @a[scores={wtmsbClick=1..},predicate=wtmsb:is_spraying] at @s run function wtmsb:paint
-
-execute as @a if score @s wtmsbCool matches 1.. run scoreboard players remove @s wtmsbCool 1
-
+execute as @a at @s run function wtmsb:tick_player
 scoreboard players reset * wtmsbClick
+
+tag @e[type=minecraft:area_effect_cloud,tag=wtmsb_pre_changing_spray,sort=random,limit=10] add wtmsb_changing_spray
+execute as @e[type=minecraft:area_effect_cloud,tag=wtmsb_changing_spray] at @s run function wrnmd:generic/start
+kill @e[type=minecraft:area_effect_cloud,tag=wtmsb_changing_spray,tag=!wrnmd_touch_edge]
+execute as @e[type=minecraft:area_effect_cloud,tag=wtmsb_changing_spray] at @s run function wtmsb:private/turn_a_spray_into_paint

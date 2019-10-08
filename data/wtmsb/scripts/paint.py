@@ -133,7 +133,7 @@ print(color_list)
 
 # 输出颜色文本
 one_pixel = ''
-text = '''execute if score colorCode wtmsbTmp matches {0:d} run data merge entity @s {{Particle: "minecraft:dust {1:.4f} {2:.4f} {3:.4f} 0.28", Radius: 0.01f}}
+text = '''execute if score colorCode wtmsbTmp matches {0:d} run data merge entity @s {{Particle: "minecraft:dust {1:.4f} {2:.4f} {3:.4f} 0.28", Radius: 0.02f}}
 execute unless score colorCode wtmsbTmp matches {0:d} run function wtmsb:private/colors/{4:d}
 '''
 text2 = '''execute if score colorCode wtmsbTmp matches {0:d} run kill @s

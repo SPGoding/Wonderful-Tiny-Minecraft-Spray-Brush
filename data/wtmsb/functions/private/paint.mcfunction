@@ -5,6 +5,7 @@ function wtmsb:private/set_buffer
 
 # Kill old paint.
 tag @s add wtmsb_self
+execute as @e[tag=wtmsb_spray] if score @s wtmsbUid = @a[limit=1,tag=wtmsb_self] wtmsbUid run kill @s
 execute as @e[tag=wtmsb_paint] if score @s wtmsbUid = @a[limit=1,tag=wtmsb_self] wtmsbUid run kill @s
 tag @a remove wtmsb_self
 
@@ -20,10 +21,9 @@ execute store result score zRotation wtmsbTmp run data get entity @e[limit=1,typ
 kill @e[type=minecraft:area_effect_cloud,tag=wtmsb_rotation_marker]
 ## SPRAY TRACING!
 ### No `anchored eyes` since it doesn't change gradually.
-execute positioned ~ ~1.8 ~ positioned ^0.4 ^0.4 ^ run function wtmsb:private/trace_at_each_point
+execute anchored eyes positioned ^0.4 ^0.4 ^ anchored feet run function wtmsb:private/summon_at_each_point
 
 # Checkout.
-kill @e[tag=wtmsb_paint,tag=!wrnmd_touch_edge]
 scoreboard players operation @s wtmsbCool = $max wtmsbCool
 
 # Effect.

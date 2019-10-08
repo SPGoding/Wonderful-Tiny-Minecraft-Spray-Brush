@@ -1,4 +1,4 @@
-#> wtmsb:private/trace_at_each_point
+#> wtmsb:private/summon_at_each_point
 # @description
 # Recurse in order to execute a bunch of ray tracings. 
 # The number of execution is determined by `wtmsbXMax wtmsbTmp` and `wtmsbYMax wtmsbTmp` defined in `wtmsb:private/image_data`.
@@ -15,7 +15,7 @@ execute store result score colorCode wtmsbTmp run data get storage wtmsb: buffer
 data remove storage wtmsb: buffer[0]
 
 # Set one pixel.
-execute if score colorCode wtmsbTmp matches 1.. run function wtmsb:private/set_one_pixel
+execute if score colorCode wtmsbTmp matches 1.. run function wtmsb:private/summon_a_spray
 
 # Move xCursor.
 scoreboard players operation xCursor wtmsbTmp += scanDirection wtmsbTmp
@@ -40,9 +40,9 @@ execute if score shouldTurn wtmsbTmp matches 1 run scoreboard players add yCurso
 # Recurse...
 ## while not finishing the last row...
 ### if should turn.
-execute if score yCursor wtmsbTmp <= wtmsbYMax wtmsbTmp if score shouldTurn wtmsbTmp matches 1 positioned ^ ^-0.05 ^ run function wtmsb:private/trace_at_each_point
+execute if score yCursor wtmsbTmp <= wtmsbYMax wtmsbTmp if score shouldTurn wtmsbTmp matches 1 positioned ^ ^-0.05 ^ run function wtmsb:private/summon_at_each_point
 ### if should not turn...
 #### while moving from the left to the right.
-execute if score yCursor wtmsbTmp <= wtmsbYMax wtmsbTmp if score shouldTurn wtmsbTmp matches 0 if score scanDirection wtmsbTmp matches 1 positioned ^-0.05 ^ ^ run function wtmsb:private/trace_at_each_point
+execute if score yCursor wtmsbTmp <= wtmsbYMax wtmsbTmp if score shouldTurn wtmsbTmp matches 0 if score scanDirection wtmsbTmp matches 1 positioned ^-0.05 ^ ^ run function wtmsb:private/summon_at_each_point
 #### while moving from the right to the left.
-execute if score yCursor wtmsbTmp <= wtmsbYMax wtmsbTmp if score shouldTurn wtmsbTmp matches 0 if score scanDirection wtmsbTmp matches -1 positioned ^0.05 ^ ^ run function wtmsb:private/trace_at_each_point
+execute if score yCursor wtmsbTmp <= wtmsbYMax wtmsbTmp if score shouldTurn wtmsbTmp matches 0 if score scanDirection wtmsbTmp matches -1 positioned ^0.05 ^ ^ run function wtmsb:private/summon_at_each_point
