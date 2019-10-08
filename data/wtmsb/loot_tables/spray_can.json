@@ -11,6 +11,13 @@
                         {
                             "function": "minecraft:set_nbt",
                             "tag": "{id: 'wtmsb:spray_can', CustomModelData: 55130267}"
+                        },
+                        {
+                            "function": "minecraft:set_name",
+                            "name": {
+                                "translate": "item.wtmsb.spray_can",
+                                "italic": false
+                            }
                         }
                     ]
                 }
