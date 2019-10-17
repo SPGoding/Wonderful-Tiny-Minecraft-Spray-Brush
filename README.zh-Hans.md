@@ -1,8 +1,11 @@
+# Wonderful Tiny Minecraft Spray Brush
 # Minecraft 超赞的轻量级喷漆系统
 
 # 简介
 
-该模组提供了将任意图片变为喷漆，并让玩家将其喷在游戏内的功能。
+超赞的轻量级喷漆系统（Wonderful Tiny Minecraft Spray Brush）是一个原版模组，提供了将任意图片变为喷漆，并让玩家将其喷在游戏内的功能。
+
+![good.png](https://i.loli.net/2019/10/08/WE7jsLgxkHcrYBe.png)
 
 # 原理
 
@@ -12,7 +15,7 @@
 
 所有喷漆的数据都储存在 `wtmsb:` 这一 data storage 中。`wtmsb:` 是一个复合标签，其格式如下：
 
-- *<喷漆数字标识>-<喷漆英文名>*: (list)
+- <喷漆数字标识>-<喷漆英文名>: (list)
     - (short): 该喷漆的宽度 - 1，单位为像素。
     - (short): 该喷漆的高度 - 1，单位为像素。
     - (short): 该喷漆位于 (0, 0) 位置的像素的颜色代码。
@@ -56,7 +59,7 @@ data modify storage wtmsb: buffer set from storage wtmsb: x-xxxxxx
 执行函数 `wtmsb:private/summon_at_each_point`。该函数是一个不断递归的函数，它所做的内容是：
 
 1. 获取并删除当前 `storage wtmsb: buffer` 中的第 `[0]` 项。该数字表示的是这个像素的颜色代码。
-2. 如果颜色代码不是 `0`（不是透明色），则在当前位置生成一个含有 `wtmsb_spray` 标签 marker，并把颜色代码存到 marker 的 `wtmsbTmp` 分数中。此外，将玩家的朝向数据储存到该 marker 的 `wrnmd_x0`、`wrnmd_y0`、`wrnmd_z0` 分数中，这是 WRNMD 模组提供的用于超精确方块判定的调用接口。
+2. 如果颜色代码不是 `0`（不是透明色），则在当前位置生成一个含有 `wtmsb_spray` 标签 marker，并把颜色代码存到 marker 的 `wtmsbTmp` 分数中。此外，将玩家的朝向数据储存到该 marker 的 `wrnmd_x0`、`wrnmd_y0`、`wrnmd_z0` 分数中，这是「家门边的超棒射线追踪系统」提供的用于超精确方块判定的调用接口。
 3. 根据之前获取的该喷漆的大小，决定是否继续递归执行，以及在递归前通过 `execute positioned` 进行的坐标偏移量。
 
 至此，储存在 `storage wtmsb: buffer` 中的喷漆数据已经转化为了一个由 `tag=wtmsb_spray` 的 marker 构成的实体阵。
@@ -82,9 +85,14 @@ execute unless score colorCode wtmsbTmp matches 145 run function wtmsb:private/c
 
 # 安装
 
-1. 将 `Wonderful-Tiny-Minecraft-Spray-Brush-Data-Pack.zip` 放置在存档的 `datapacks` 目录下；
+[attach]1400871[/attach]
+
+[attach]1400870[/attach]
+
+0. 安装本模组的前置模组：[家门边的超棒射线追踪系统](https://www.mcbbs.net/thread-919112-1-1.html)
+1. 将 `WTMSB-Data-Pack.zip` 放置在存档的 `datapacks` 目录下；
 2. 重进游戏，或输入 `reload` 命令；
-3. 将 `Wonderful-Tiny-Minecraft-Spray-Brush-Resource-Pack.zip` 放置在 `.minecraft` 文件夹的 `resourcepacks` 目录下；
+3. 将 `WTMSB-Resource-Pack.zip` 放置在 `.minecraft` 文件夹的 `resourcepacks` 目录下；
 4. 在「资源包」选项中启用该资源包。
 
 # 使用
@@ -102,10 +110,10 @@ execute unless score colorCode wtmsbTmp matches 145 run function wtmsb:private/c
 
 # 可能的不兼容
 
-本模组使用到的 `CustomModelData` 为 `55130267`，修改了胡萝卜钓竿的模型 `minecraft:item/carrot_on_a_stick`。
+本模组使用到的 `CustomModelData` 为 `55130267`，修改了胡萝卜钓竿的模型 `minecraft:item/carrot_on_a_stick`，资源包命名空间为 `wtmsb`。
 
 # 鸣谢
 
-- @kongbaiyo 帮我写的脚本。本模组的前置、世界第一的 [WRNMD]() 模组也是他写的。空白白超棒！
+- @kongbaiyo 帮我写的脚本。本模组的前置、世界第一的 [家门边的超棒射线追踪系统](https://www.mcbbs.net/thread-919112-1-1.html) 模组也是他写的。空白白超棒！
 - @562256851 帮我画的喷漆罐材质！
 - #Overwatch 让我嫖来了喷漆的音效！

@@ -142,9 +142,9 @@ execute unless score colorCode wtmsbTmp matches {0:d} run function wtmsb:private
 for i in range(len(color_list)):
     with open(os.path.join(path_one_pixel_dir, '{:d}.mcfunction'.format(i)), 'w') as f:
         if color_list[i]['color'].empty == True:
-            f.write(text2.format(color_list[i]['index'], color_list[i]['color'].color[0]/255, color_list[i]['color'].color[1]/255, color_list[i]['color'].color[1]/255, i+1))
+            f.write(text2.format(color_list[i]['index'], color_list[i]['color'].color[0]/255, color_list[i]['color'].color[1]/255, color_list[i]['color'].color[2]/255, i+1))
         else:
-            f.write(text.format(color_list[i]['index'], color_list[i]['color'].color[0]/255, color_list[i]['color'].color[1]/255, color_list[i]['color'].color[1]/255, i+1))
+            f.write(text.format(color_list[i]['index'], color_list[i]['color'].color[0]/255, color_list[i]['color'].color[1]/255, color_list[i]['color'].color[2]/255, i+1))
     
 
 # 输出图形文本
