@@ -114,6 +114,7 @@ execute unless score colorCode wtmsbTmp matches 145 run function wtmsb:private/c
 
 # 鸣谢
 
-- @kongbaiyo 帮我写的脚本。本模组的前置、世界第一的 [家门边的超棒射线追踪系统](https://www.mcbbs.net/thread-919112-1-1.html) 模组也是他写的。空白白超棒！
-- @562256851 帮我画的喷漆罐材质！
+- kongbaiyo 帮我写的脚本。本模组的前置、世界第一的 [家门边的超棒射线追踪系统](https://www.mcbbs.net/thread-919112-1-1.html) 模组也是他写的。空白白超棒！
+- 折君 帮我画的喷漆罐材质！
+- chyx 捉虫
 - #Overwatch 让我嫖来了喷漆的音效！
