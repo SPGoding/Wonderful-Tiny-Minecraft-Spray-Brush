@@ -15,7 +15,7 @@
 
 所有喷漆的数据都储存在 `wtmsb:` 这一 data storage 中。`wtmsb:` 是一个复合标签，其格式如下：
 
-- <喷漆数字标识>-<喷漆英文名>: (list)
+- `<喷漆数字标识>-<喷漆英文名>`: (list)
     - (short): 该喷漆的宽度 - 1，单位为像素。
     - (short): 该喷漆的高度 - 1，单位为像素。
     - (short): 该喷漆位于 (0, 0) 位置的像素的颜色代码。
@@ -59,7 +59,7 @@ data modify storage wtmsb: buffer set from storage wtmsb: x-xxxxxx
 执行函数 `wtmsb:private/summon_at_each_point`。该函数是一个不断递归的函数，它所做的内容是：
 
 1. 获取并删除当前 `storage wtmsb: buffer` 中的第 `[0]` 项。该数字表示的是这个像素的颜色代码。
-2. 如果颜色代码不是 `0`（不是透明色），则在当前位置生成一个含有 `wtmsb_spray` 标签 marker，并把颜色代码存到 marker 的 `wtmsbTmp` 分数中。此外，将玩家的朝向数据储存到该 marker 的 `wrnmd_x0`、`wrnmd_y0`、`wrnmd_z0` 分数中，这是「家门边的超棒射线追踪系统」提供的用于超精确方块判定的调用接口。
+2. 如果颜色代码不是 `0`（不是透明色），则在当前位置生成一个含有 `wtmsb_spray` 标签 marker，并把颜色代码存到 marker 的 `wtmsbTmp` 分数中。此外，将玩家的朝向数据储存到该 marker 的 `mrcd_x0`、`mrcd_y0`、`mrcd_z0` 分数中，这是「超精准射线碰撞检测器」提供的用于超精确方块判定的调用接口。
 3. 根据之前获取的该喷漆的大小，决定是否继续递归执行，以及在递归前通过 `execute positioned` 进行的坐标偏移量。
 
 至此，储存在 `storage wtmsb: buffer` 中的喷漆数据已经转化为了一个由 `tag=wtmsb_spray` 的 marker 构成的实体阵。
@@ -70,7 +70,7 @@ data modify storage wtmsb: buffer set from storage wtmsb: x-xxxxxx
 
 然后，执行上述「喷漆图片的读取」的步骤。
 
-接下来就应当在每个 `tag=wtmsb_spray` 的 marker 的位置进行方块碰撞判定。由于该判定极其精细，执行命令数略多，我们可以限制每刻执行的 marker 数量为 10 个。为了使得效果更为自然，首先以每个玩家所在位置为执行位置，标记最近的 16 个 `tag=wtmsb_spray` 为 `tag=wtmsb_pre_changing_spray`。然后，从所有 `tag=wtmsb_pre_changing_spray` 中随机抽取 10 个标记为 `tag=wtmsb_changing_spray`。以最终标记的这 10 个实体为执行者，运行 `wrnmd:generic/start` 函数，完成方块判定。
+接下来就应当在每个 `tag=wtmsb_spray` 的 marker 的位置进行方块碰撞判定。由于该判定极其精细，执行命令数略多，我们可以限制每刻执行的 marker 数量为 10 个。为了使得效果更为自然，首先以每个玩家所在位置为执行位置，标记最近的 16 个 `tag=wtmsb_spray` 为 `tag=wtmsb_pre_changing_spray`。然后，从所有 `tag=wtmsb_pre_changing_spray` 中随机抽取 10 个标记为 `tag=wtmsb_changing_spray`。以最终标记的这 10 个实体为执行者，运行 `mrcd:generic/start` 函数，完成方块判定。
 
 但是，由于 MC 的一个漏洞，对药水云进行位置变换操作并不一定会显示出来，因此最后我们还需要在所有 `tag=wtmsb_changing_spray` 的原地复制一个新的 marker 出来，删除原有的旧 marker。为了区分，新生成的 marker 标记为 `tag=wtmsb_paint`。
 
@@ -89,7 +89,7 @@ execute unless score colorCode wtmsbTmp matches 145 run function wtmsb:private/c
 
 [attach]1400870[/attach]
 
-0. 安装本模组的前置模组：[家门边的超棒射线追踪系统](https://www.mcbbs.net/thread-919112-1-1.html)
+0. 安装本模组的前置模组：[超精准射线碰撞检测器](https://www.mcbbs.net/thread-919112-1-1.html)
 1. 将 `WTMSB-Data-Pack.zip` 放置在存档的 `datapacks` 目录下；
 2. 重进游戏，或输入 `reload` 命令；
 3. 将 `WTMSB-Resource-Pack.zip` 放置在 `.minecraft` 文件夹的 `resourcepacks` 目录下；
@@ -114,7 +114,7 @@ execute unless score colorCode wtmsbTmp matches 145 run function wtmsb:private/c
 
 # 鸣谢
 
-- kongbaiyo 帮我写的脚本。本模组的前置、世界第一的 [家门边的超棒射线追踪系统](https://www.mcbbs.net/thread-919112-1-1.html) 模组也是他写的。空白白超棒！
+- kongbaiyo 帮我写的脚本。本模组的前置、世界第一的 [超精准射线碰撞检测器](https://www.mcbbs.net/thread-919112-1-1.html) 模组也是他写的。空白白超棒！
 - 折君 帮我画的喷漆罐材质！
 - chyx 捉虫
 - #Overwatch 让我嫖来了喷漆的音效！
